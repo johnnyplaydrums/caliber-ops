@@ -14,7 +14,7 @@ remote_state = {
   backend = "s3"
   config {
     encrypt = "true"
-    bucket = "ops-743318732674-us-east-1"
+    bucket = "caliber-ops-743318732674-us-east-1"
     key = "terraform/${path_relative_to_include()}/terraform-743318732674-us-east-1.tfstate"
     region = "us-east-1"
   }
