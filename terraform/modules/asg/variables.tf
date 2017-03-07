@@ -32,3 +32,8 @@ variable "instance_type" {
 variable "public_ssh_key" {
     default = "ops"
 }
+
+variable "security_groups" {
+    type = "list"
+    default = ["sg-1fa8b763"]
+}
