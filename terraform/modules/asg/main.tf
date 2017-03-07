@@ -23,4 +23,5 @@ resource "aws_launch_configuration" "base" {
     image_id = "${var.image_id}"
     instance_type = "${var.instance_type}"
     key_name = "${var.public_ssh_key}"
+    security_groups = ["${var.security_groups}"]
 }

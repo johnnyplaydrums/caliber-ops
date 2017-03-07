@@ -17,3 +17,11 @@ variable "max_size" {
 variable "desired_capacity" {
     default = "0"
 }
+
+variable "instance_type" {
+    default = "t2.micro"
+}
+
+variable "vpc_id" {
+    default = "vpc-b4c6bdd2"
+}
