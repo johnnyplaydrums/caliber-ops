@@ -1,0 +1,10 @@
+---
+    app_user: ubuntu
+    service_name: data_ingest
+    user_directory: /home/{{ app_user }}
+    repo_directory: "{{ user_directory }}/caliber"
+    app_directory: "{{ repo_directory}}/{{ service_name }}"
+    venv: "{{ app_directory }}/venv"
+    python2.7: /usr/bin/python
+    pip2: /usr/bin/pip
+    virtualenv: /usr/bin/virtualenv

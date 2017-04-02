@@ -1,0 +1,9 @@
+---
+
+  - name: update and install apt packages
+    apt:
+      name: "{{ item }}"
+      update_cache: yes
+    with_items:
+       - python-pip
+       - awscli
