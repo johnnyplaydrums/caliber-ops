@@ -12,9 +12,19 @@ resource "aws_iam_policy" "associate_ip" {
   policy = "${file("${path.module}/policies/associate-address.json")}"
 }
 
+resource "aws_iam_policy" "dyanmodb" {
+  name = "dyanmodb"
+  policy = "${file("${path.module}/policies/dynamodb-access.json")}"
+}
+
 resource "aws_iam_role_policy_attachment" "associate_ip_attachment" {
   role = "${aws_iam_role.data_ingest_role.name}"
   policy_arn = "${aws_iam_policy.associate_ip.arn}"
+}
+
+resource "aws_iam_role_policy_attachment" "dynamodb_attachment" {
+  role = "${aws_iam_role.data_ingest_role.name}"
+  policy_arn = "${aws_iam_policy.dyanmodb.arn}"
 }
 
 resource "aws_iam_instance_profile" "data_ingest" {
@@ -58,5 +68,17 @@ resource "aws_security_group" "data_ingest" {
 
   tags {
     Name = "${var.service_name} Base SG"
+  }
+}
+
+resource "aws_dynamodb_table" "data-ingest" {
+  name = "data-ingest"
+  read_capacity = 1
+  write_capacity = 1
+  hash_key = "datetime"
+
+  attribute {
+    name = "datetime"
+    type = "S"
   }
 }

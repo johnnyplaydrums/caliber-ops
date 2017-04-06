@@ -1,9 +1,20 @@
 ---
 
   - name: update and install apt packages
+    become: true
     apt:
       name: "{{ item }}"
       update_cache: yes
     with_items:
        - python-pip
        - awscli
+
+  - name: create .aws folder
+    file:
+      path: "/home/ubuntu/.aws"
+      state: directory
+
+  - name: copy aws config
+    copy:
+      src: config
+      dest: "/home/ubuntu/.aws"

@@ -1,0 +1,32 @@
+{
+  "description": "AMI packer template",
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "us-east-1",
+      "source_ami": "ami-70921166",
+      "instance_type": "t2.micro",
+      "ssh_username": "ubuntu",
+      "iam_instance_profile": "data_ingest-instance-profile-role",
+      "run_tags": {
+        "Name": "AMI Builder: Data Ingest",
+        "created_by": "Packer"
+      },
+      "ami_name": "data-ingest-service-ubuntu-trusty-16.04-hvm-{{isotime | clean_ami_name}}",
+      "tags": {
+        "created_at": "{{isotime}}",
+        "Name": "Data Ingest AMI"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible-local",
+      "playbook_file": "ansible/data_ingest.yml",
+      "playbook_dir": "ansible",
+      "extra_arguments": [
+        "-v -e 'ami=True'"
+      ]
+    }
+  ]
+}

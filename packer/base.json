@@ -1,0 +1,32 @@
+{
+  "description": "AMI packer template",
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "us-east-1",
+      "source_ami": "ami-fa8300ec",
+      "instance_type": "t2.micro",
+      "ssh_username": "ubuntu",
+      "iam_instance_profile": "data_ingest-instance-profile-role",
+      "run_tags": {
+        "Name": "AMI Builder: Base",
+        "created_by": "Packer"
+      },
+      "ami_name": "base-service-ubuntu-trusty-16.04-hvm-{{isotime | clean_ami_name}}",
+      "tags": {
+        "created_at": "{{isotime}}",
+        "Name": "Base AMI"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible-local",
+      "playbook_file": "ansible/base.yml",
+      "playbook_dir": "ansible",
+      "extra_arguments": [
+        "-v -e 'ami=True'"
+      ]
+    }
+  ]
+}

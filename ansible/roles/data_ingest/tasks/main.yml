@@ -1,6 +1,7 @@
 ---
 
   - name: update apt packages
+    become: true
     apt:
       name: "{{ item }}"
       update_cache: yes
@@ -10,6 +11,7 @@
        - nginx
 
   - name: install virtualenv
+    become: true
     pip:
         name: virtualenv
         executable: "{{ pip2 }}"
@@ -19,39 +21,41 @@
         repo: https://github.com/johnplaydrums/caliber.git
         dest: "{{ repo_directory }}"
 
-  - name: create virtualenv and install pip module
+  - name: create virtualenv and install pip requirements
     pip:
-      name: "{{ item }}"
       virtualenv: "{{ venv }}"
       virtualenv_python: /usr/bin/python
       virtualenv_site_packages: yes
-    with_items:
-        - uwsgi
-        - flask
+      requirements: "{{ app_directory }}/requirements.txt"
 
   - name: copy systemd script
+    become: true
     template:
       src: data_ingest.service
       dest: /etc/systemd/system/data_ingest.service
 
   - name: start data_ingest and enable on boot
+    become: true
     systemd:
       name: "{{ service_name }}"
       state: started
       enabled: yes
 
   - name: copy nginx config
+    become: true
     template:
       src: data_ingest
       dest: /etc/nginx/sites-available/data_ingest
 
   - name: link nginx config
+    become: true
     file:
       src: /etc/nginx/sites-available/data_ingest
       dest: /etc/nginx/sites-enabled/data_ingest
       state: link
 
   - name: restart nginx
+    become: true
     systemd:
       name: nginx
       state: restarted

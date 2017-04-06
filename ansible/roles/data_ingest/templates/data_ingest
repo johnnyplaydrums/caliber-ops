@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name 34.205.150.122;
+    server_name {{ domain_name }};
 
     location / {
         include uwsgi_params;
