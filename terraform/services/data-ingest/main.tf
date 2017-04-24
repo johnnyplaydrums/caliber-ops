@@ -75,10 +75,16 @@ resource "aws_dynamodb_table" "data-ingest" {
   name = "data-ingest"
   read_capacity = 1
   write_capacity = 1
-  hash_key = "datetime"
+  hash_key = "address"
+  range_key = "inserted_at"
 
   attribute {
-    name = "datetime"
+    name = "inserted_at"
+    type = "S"
+  }
+
+  attribute {
+    name = "address"
     type = "S"
   }
 }
