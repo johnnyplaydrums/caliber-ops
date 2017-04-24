@@ -4,7 +4,7 @@
     {
       "type": "amazon-ebs",
       "region": "us-east-1",
-      "source_ami": "ami-70921166",
+      "source_ami": "ami-5767ff41",
       "instance_type": "t2.micro",
       "ssh_username": "ubuntu",
       "iam_instance_profile": "data_ingest-instance-profile-role",
