@@ -6,9 +6,14 @@ data "terraform_remote_state" "data_ingest" {
   backend = "s3"
   config {
     bucket = "caliber-ops-${data.aws_caller_identity.current.account_id}-${var.region}"
-    key = "terraform/services/data_ingest/terraform-${data.aws_caller_identity.current.account_id}-${var.region}.tfstate"
+    key = "terraform/services/data-ingest/terraform-${data.aws_caller_identity.current.account_id}-${var.region}.tfstate"
     region = "${var.region}"
   }
+}
+
+resource "aws_iam_role" "data_process_role" {
+  name = "data_process_role"
+  assume_role_policy = "${file("${path.module}/policies/service-instance-role.json")}"
 }
 
 resource "aws_iam_role_policy_attachment" "associate_ip_attachment" {

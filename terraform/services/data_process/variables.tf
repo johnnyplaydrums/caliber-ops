@@ -1,9 +1,11 @@
+data "aws_caller_identity" "current" {}
+
 variable "desired_capacity" {
     default = "1"
 }
 
 variable "image_id" {
-  default =  "ami-751e8663"
+  default =  "ami-33cd5625"
 }
 
 variable "instance_type" {
