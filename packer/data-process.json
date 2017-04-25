@@ -1,0 +1,32 @@
+{
+  "description": "AMI packer template",
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "us-east-1",
+      "source_ami": "ami-5767ff41",
+      "instance_type": "t2.micro",
+      "ssh_username": "ubuntu",
+      "iam_instance_profile": "data_process-instance-profile-role",
+      "run_tags": {
+        "Name": "AMI Builder: Data Process",
+        "created_by": "Packer"
+      },
+      "ami_name": "data-process-service-ubuntu-trusty-16.04-hvm-{{isotime | clean_ami_name}}",
+      "tags": {
+        "created_at": "{{isotime}}",
+        "Name": "Data Process AMI"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible-local",
+      "playbook_file": "ansible/data_process.yml",
+      "playbook_dir": "ansible",
+      "extra_arguments": [
+        "-v -e 'ami=True'"
+      ]
+    }
+  ]
+}

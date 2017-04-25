@@ -1,0 +1,6 @@
+---
+  - name: Data Process
+    hosts: all
+    remote_user: ubuntu
+    roles:
+      - role: data_process

@@ -67,7 +67,7 @@ resource "aws_security_group" "data_ingest" {
   }
 
   tags {
-    Name = "${var.service_name} Base SG"
+    Name = "${var.service_name} SG"
   }
 }
 

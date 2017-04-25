@@ -16,10 +16,10 @@
   - name: copy systemd script
     become: true
     template:
-      src: data_ingest.service
-      dest: /etc/systemd/system/data_ingest.service
+      src: data_process.service
+      dest: /etc/systemd/system/data_process.service
 
-  - name: start data_ingest and enable on boot
+  - name: start data_process and enable on boot
     become: true
     systemd:
       name: "{{ service_name }}"
@@ -29,14 +29,14 @@
   - name: copy nginx config
     become: true
     template:
-      src: data_ingest
-      dest: /etc/nginx/sites-available/data_ingest
+      src: data_process
+      dest: /etc/nginx/sites-available/data_process
 
   - name: link nginx config
     become: true
     file:
-      src: /etc/nginx/sites-available/data_ingest
-      dest: /etc/nginx/sites-enabled/data_ingest
+      src: /etc/nginx/sites-available/data_process
+      dest: /etc/nginx/sites-enabled/data_process
       state: link
 
   - name: restart nginx

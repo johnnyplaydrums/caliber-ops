@@ -7,14 +7,21 @@
       update_cache: yes
     with_items:
        - python-pip
+       - python-dev
+       - nginx
        - awscli
+
+  - name: clone caliber
+    git:
+        repo: https://github.com/johnplaydrums/caliber.git
+        dest: "{{ repo_directory }}"
 
   - name: create .aws folder
     file:
-      path: "/home/ubuntu/.aws"
+      path: /home/ubuntu/.aws
       state: directory
 
   - name: copy aws config
     copy:
       src: config
-      dest: "/home/ubuntu/.aws"
+      dest: /home/ubuntu/.aws

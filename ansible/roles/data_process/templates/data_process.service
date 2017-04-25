@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance to serve data_process
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory={{ app_directory }}
+Environment=PATH={{ venv }}/bin
+ExecStart={{ venv }}/bin/uwsgi --ini data_process.ini
+
+[Install]
+WantedBy=multi-user.target
