@@ -11,11 +11,6 @@
        - nginx
        - awscli
 
-  - name: clone caliber
-    git:
-        repo: https://github.com/johnplaydrums/caliber.git
-        dest: "{{ repo_directory }}"
-
   - name: create .aws folder
     file:
       path: /home/ubuntu/.aws

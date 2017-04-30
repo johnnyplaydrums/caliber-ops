@@ -1,5 +1,10 @@
 ---
 
+  - name: clone caliber
+    git:
+        repo: https://github.com/johnplaydrums/caliber.git
+        dest: "{{ repo_directory }}"
+
   - name: install virtualenv
     become: true
     pip:
