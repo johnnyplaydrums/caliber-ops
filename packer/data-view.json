@@ -1,0 +1,32 @@
+{
+  "description": "AMI packer template",
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "us-east-1",
+      "source_ami": "ami-abca51bd",
+      "instance_type": "t2.micro",
+      "ssh_username": "ubuntu",
+      "iam_instance_profile": "data_view-instance-profile-role",
+      "run_tags": {
+        "Name": "AMI Builder: Data View",
+        "created_by": "Packer"
+      },
+      "ami_name": "data-view-service-ubuntu-trusty-16.04-hvm-{{isotime | clean_ami_name}}",
+      "tags": {
+        "created_at": "{{isotime}}",
+        "Name": "Data View AMI"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible-local",
+      "playbook_file": "ansible/data_view.yml",
+      "playbook_dir": "ansible",
+      "extra_arguments": [
+        "-v -e 'ami=True'"
+      ]
+    }
+  ]
+}
