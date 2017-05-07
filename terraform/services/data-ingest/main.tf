@@ -73,8 +73,8 @@ resource "aws_security_group" "data_ingest" {
 
 resource "aws_dynamodb_table" "data-ingest" {
   name = "data-ingest"
-  read_capacity = 1
-  write_capacity = 1
+  read_capacity = 5
+  write_capacity = 5
   hash_key = "address"
   range_key = "inserted_at"
 

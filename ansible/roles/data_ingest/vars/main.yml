@@ -1,7 +1,7 @@
 ---
     app_user: ubuntu
     service_name: data_ingest
-    domain_name: monitorcaliber.com
+    domain_name: 34.205.150.122
     user_directory: /home/{{ app_user }}
     repo_directory: "{{ user_directory }}/caliber"
     app_directory: "{{ repo_directory}}/{{ service_name }}"
