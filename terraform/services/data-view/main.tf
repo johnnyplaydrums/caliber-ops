@@ -2,29 +2,28 @@ provider "aws" {
   region  = "${var.region}"
 }
 
+data "terraform_remote_state" "data_ingest" {
+  backend = "s3"
+  config {
+    bucket = "caliber-ops-${data.aws_caller_identity.current.account_id}-${var.region}"
+    key = "terraform/services/data-ingest/terraform-${data.aws_caller_identity.current.account_id}-${var.region}.tfstate"
+    region = "${var.region}"
+  }
+}
+
 resource "aws_iam_role" "data_view_role" {
   name = "data_view_role"
   assume_role_policy = "${file("${path.module}/policies/service-instance-role.json")}"
 }
 
-resource "aws_iam_policy" "associate_ip" {
-  name = "associate_ip"
-  policy = "${file("${path.module}/policies/associate-address.json")}"
-}
-
-resource "aws_iam_policy" "dyanmodb" {
-  name = "dyanmodb"
-  policy = "${file("${path.module}/policies/dynamodb-access.json")}"
-}
-
 resource "aws_iam_role_policy_attachment" "associate_ip_attachment" {
   role = "${aws_iam_role.data_view_role.name}"
-  policy_arn = "${aws_iam_policy.associate_ip.arn}"
+  policy_arn = "${data.terraform_remote_state.data_ingest.associate_ip_role}"
 }
 
 resource "aws_iam_role_policy_attachment" "dynamodb_attachment" {
   role = "${aws_iam_role.data_view_role.name}"
-  policy_arn = "${aws_iam_policy.dyanmodb.arn}"
+  policy_arn = "${data.terraform_remote_state.data_ingest.dynamodb_role}"
 }
 
 resource "aws_iam_instance_profile" "data_view" {
