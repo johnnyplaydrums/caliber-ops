@@ -1,0 +1,51 @@
+---
+
+  - name: clone caliber
+    git:
+        repo: https://github.com/johnplaydrums/caliber.git
+        dest: "{{ repo_directory }}"
+
+  - name: install virtualenv
+    become: true
+    pip:
+        name: virtualenv
+        executable: "{{ pip2 }}"
+
+  - name: create virtualenv and install pip requirements
+    pip:
+      virtualenv: "{{ venv }}"
+      virtualenv_python: /usr/bin/python
+      virtualenv_site_packages: yes
+      requirements: "{{ app_directory }}/requirements.txt"
+
+  - name: copy systemd script
+    become: true
+    template:
+      src: data_view.service
+      dest: /etc/systemd/system/data_view.service
+
+  - name: start data_view and enable on boot
+    become: true
+    systemd:
+      name: "{{ service_name }}"
+      state: started
+      enabled: yes
+
+  - name: copy nginx config
+    become: true
+    template:
+      src: data_view
+      dest: /etc/nginx/sites-available/data_view
+
+  - name: link nginx config
+    become: true
+    file:
+      src: /etc/nginx/sites-available/data_view
+      dest: /etc/nginx/sites-enabled/data_view
+      state: link
+
+  - name: restart nginx
+    become: true
+    systemd:
+      name: nginx
+      state: restarted

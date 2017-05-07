@@ -1,0 +1,6 @@
+---
+  - name: Data View
+    hosts: all
+    remote_user: ubuntu
+    roles:
+      - role: data_view
