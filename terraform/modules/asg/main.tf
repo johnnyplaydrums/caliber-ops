@@ -8,7 +8,7 @@ resource "aws_autoscaling_group" "base" {
   vpc_zone_identifier = ["${var.vpc_subnets}"]
 
   lifecycle {
-    create_before_destroy = true
+    create_before_destroy = "true"
   }
 
   tag {
@@ -25,6 +25,10 @@ resource "aws_launch_configuration" "base" {
   iam_instance_profile = "${var.iam_instance_profile}"
   key_name = "${var.public_ssh_key}"
   security_groups = ["${var.security_groups}"]
+
+  lifecycle {
+    create_before_destroy = "true"
+  }
 
   user_data = <<EOF
     #cloud-config

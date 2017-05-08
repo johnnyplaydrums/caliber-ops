@@ -5,7 +5,7 @@ variable "desired_capacity" {
 }
 
 variable "image_id" {
-  default =  "ami-ddc9a6cb"
+  default =  "ami-df315bc9"
 }
 
 variable "instance_type" {
