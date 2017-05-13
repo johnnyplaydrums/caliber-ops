@@ -25,7 +25,7 @@ variable "region" {
 }
 
 variable "service_name" {
-    default = "data_process"
+    default = "data-process"
 }
 
 variable "vpc_id" {

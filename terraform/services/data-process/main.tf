@@ -70,8 +70,20 @@ resource "aws_security_group" "data_process" {
   }
 }
 
-resource "aws_dynamodb_table" "data-process" {
+resource "aws_dynamodb_table" "data_process" {
   name = "data-process"
+  read_capacity = 5
+  write_capacity = 5
+  hash_key = "address"
+
+  attribute {
+    name = "address"
+    type = "S"
+  }
+}
+
+resource "aws_dynamodb_table" "data_process_test" {
+  name = "data-process-test"
   read_capacity = 5
   write_capacity = 5
   hash_key = "address"
