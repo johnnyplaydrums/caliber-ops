@@ -5,7 +5,7 @@ variable "desired_capacity" {
 }
 
 variable "image_id" {
-  default =  "ami-df315bc9"
+  default =  "ami-3eaad628"
 }
 
 variable "instance_type" {
@@ -25,7 +25,7 @@ variable "region" {
 }
 
 variable "service_name" {
-    default = "data-process"
+    default = "data_process"
 }
 
 variable "vpc_id" {

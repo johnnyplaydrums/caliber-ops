@@ -1,7 +1,7 @@
 ---
     app_user: ubuntu
     service_name: data_process
-    domain_name: 34.205.34.72
+    domain_name: 34.224.45.193
     user_directory: /home/{{ app_user }}
     repo_directory: "{{ user_directory }}/caliber"
     app_directory: "{{ repo_directory}}/{{ service_name }}"
