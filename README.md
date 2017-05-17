@@ -1,3 +1,3 @@
 # Caliber ops
 
-Deployment and automation of infrastructure
+Infrastructure automation for [Caliber](https://github.com/johnplaydrums/caliber)
