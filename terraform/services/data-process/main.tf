@@ -81,15 +81,3 @@ resource "aws_dynamodb_table" "data_process" {
     type = "S"
   }
 }
-
-resource "aws_dynamodb_table" "data_process_test" {
-  name = "data-process-test"
-  read_capacity = 5
-  write_capacity = 5
-  hash_key = "address"
-
-  attribute {
-    name = "address"
-    type = "S"
-  }
-}
